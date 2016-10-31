@@ -63,11 +63,11 @@ To help avoid the "vanishing/exploding gradients" problem, I used Long Short Ter
 Is an RNN overkill for this problem? Probably. I'm sure a simple N-gram model would have similar predictive power with lower computational cost. But RNNs are cool and this project is about seeing what we can do with neural networks.   
 
 Putting it all together, the process to generate the beat track for a new song is:
-1. Compute spectrogram from raw audio samples
-2. Feed spectrogram to CNN in chunks
-3. Identify onsets by thresholding and peak-picking from the CNN's predicted onset probability for each time step
-4. Sample note types from the RNN, one note at a time
-5. Combine timestamps + onsets + note types for playback with the original song
+ 1. Compute spectrogram from raw audio samples
+ 2. Feed spectrogram to CNN in chunks
+ 3. Identify onsets by thresholding and peak-picking from the CNN's predicted onset probability for each time step
+ 4. Sample note types from the RNN, one note at a time
+ 5. Combine timestamps + onsets + note types for playback with the original song
 
 
 ### Training
@@ -76,19 +76,19 @@ These models were implemented using [Tensorflow](https://www.tensorflow.org/), a
 As with any deep neural network, picking the hyperparameters that define the network shape and size is a bit of a dark art. I don't have any special insights here other than, be systematic and try a bunch! For these networks, the hyperparameter search space was roughly the following:
 
 CNN
-* Number of conv layers
-* Size of conv layers
-* Number of fully connected layers
-* Size of fully connected layers
-* Activation threshold for an onset   
-* Dropout probability
-* Learning rate
+ * Number of conv layers
+ * Size of conv layers
+ * Number of fully connected layers
+ * Size of fully connected layers
+ * Activation threshold for an onset   
+ * Dropout probability
+ * Learning rate
 
 RNN
-* Number of LSTM layers
-* Size of LSTM layers
-* Number of steps to backpropagate
-* Learning rate
+ * Number of LSTM layers
+ * Size of LSTM layers
+ * Number of steps to backpropagate
+ * Learning rate
 
 After finding the "best" set of hyperparameters, it's time to optimize the model as much as possible and let it train for a while. On my CPU, 40 epochs of training the CNN over 100 songs took about 6 hours. I tried using GPU spot instances on AWS, but decided after a few runs that the relatively minor improvements in training time were outweighed by the new costs of renting the instances (and dealing with random shutdowns). For the RNN, I trained for 100 epochs (about 5 hours). 
 
