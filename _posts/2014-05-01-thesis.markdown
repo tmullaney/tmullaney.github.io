@@ -1,0 +1,15 @@
+---
+layout: post
+title:  "Making Sense of MOOCs: A Reconceptualization of HarvardX Courses and Their Students"
+category: research
+feature_image: /img/thesis-feature.png
+priority: 30
+---
+My 118-page undergraduate thesis argues that massive open online courses (MOOCs) cannot be properly understood using conventional educational metrics and definitions, and that students, instructors, university leaders, and policymakers must be wary in viewing this new technology through the lenses of the past.
+
+The thesis contextualizes MOOCs within a rich history of distance learning and open courseware, and proposes new “reconceptualizations” of retention and asynchronicity in MOOCs that can help us evaluate their efficacy and worth. As an empirical study, this paper draws on unique datasets derived from edX clicksteam event logs for six early HarvardX courses.
+
+Building and testing these datasets was the most labor-intensive part of this study: clicksteam logs were large (~10 GB per course), non-standardized (cue lots of regex), and not well documented (at the time). Thus, I spent most of my time munging away in iPython notebooks, as well as digging through edX’s source code to verify which student actions correspond to which events. Needless to say, I learned a ton!
+
+[Read the paper](http://ssrn.com/abstract=2463736)
+

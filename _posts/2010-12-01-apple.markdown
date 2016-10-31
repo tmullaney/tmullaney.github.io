@@ -1,0 +1,9 @@
+---
+layout: post
+title:  "Apple"
+category: artwork
+feature_image: /img/apple-oil-768x1024.jpg
+detail: false 
+priority: 12
+---
+Oil on canvas

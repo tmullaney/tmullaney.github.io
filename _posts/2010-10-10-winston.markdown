@@ -1,0 +1,11 @@
+---
+layout: post
+title:  "Winston"
+category: artwork
+feature_image: /img/winston-pencil-768x1024.jpg
+detail: false 
+priority: 15
+---
+Graphite
+
+Portrait of my childhood dog, a miniature Schnauzer named Winston. 
