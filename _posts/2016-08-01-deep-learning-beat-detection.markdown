@@ -76,13 +76,15 @@ These models were implemented using [Tensorflow](https://www.tensorflow.org/), a
 As with any deep neural network, picking the hyperparameters that define the network shape and size is a bit of a dark art. I don't have any special insights here other than, be systematic and try a bunch! For these networks, the hyperparameter search space was roughly the following:
 
 CNN
- * Number of conv layers
- * Size of conv layers
- * Number of fully connected layers
- * Size of fully connected layers
- * Activation threshold for an onset   
- * Dropout probability
- * Learning rate
+<ul>
+    <li>Number of conv layers</li>
+    <li>Size of conv layers</li>
+    <li>Number of fully connected layers</li>
+    <li>Size of fully connected layers</li>
+    <li>Activation threshold for an onset</li>   
+    <li>Dropout probability</li>
+    <li>Learning rate</li>
+</ul>
 
 RNN
  * Number of LSTM layers
