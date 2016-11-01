@@ -122,7 +122,8 @@ If you combine the predicted onsets with the RNN, you can generate "beat tracks"
 
 ### Future
 The results here are pretty cool! But there's also a lot of room for improvement. Here are a few areas for further work:
-* Combine the CNN and RNN into a single model that can be trained end-to-end. This was my original approach, but I found that training separate models produced better results.
-* Add additional preprocessing steps while generating each song's spectrogram. For example, [Mel-frequency cepstral coefficients (MFCC)](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum) are commonly used as features in audio recognition tasks. 
-* Compute multiple spectrograms for each song using different FFT window sizes. This way you could feed the CNN multiple levels of temporal resolution for a given song. This temporal information could help identify onsets, as well as longer-term patterns that occur at different points of the song. 
-
+<ul>
+    <li>Combine the CNN and RNN into a single model that can be trained end-to-end. This was my original approach, but I found that training separate models produced better results.</li>
+    <li>Add additional preprocessing steps while generating each song's spectrogram. For example, [Mel-frequency cepstral coefficients (MFCC)](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum) are commonly used as features in audio recognition tasks.</li> 
+    <li>Compute multiple spectrograms for each song using different FFT window sizes. This way you could feed the CNN multiple levels of temporal resolution for a given song. This temporal information could help identify onsets, as well as longer-term patterns that occur at different points of the song.</li>  
+</ul>
