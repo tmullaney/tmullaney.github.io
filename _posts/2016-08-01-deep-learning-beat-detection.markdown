@@ -23,10 +23,11 @@ Here's the problem: Given a song's raw audio samples (usually 44,100 per second!
 
 ### Why is this hard? 
 Identifying notes from either the raw audio samples or the spectrogram is not an easy task -- whether you are human or machine. Here are some reasons why it is so difficult:
-* Notes are sparse, so you see way more negative cases than positive ones
-* You need to identify both the location and type of each note (since there are three tracks, there are seven types of notes; and determining the type of a note requies you to remember and understand the sequence of other notes leading up to it)  
-* The spectrogram may not contain all information necessary to identify a note, especially since some note choices are subjective 
-
+<ol>
+    <li>Notes are sparse, so you see way more negative cases than positive ones</li>
+    <li>You need to identify both the location and type of each note (since there are three tracks, there are seven types of notes; and determining the type of a note requies you to remember and understand the sequence of other notes leading up to it)</li>  
+    <li>The spectrogram may not contain all information necessary to identify a note, especially since some note choices are subjective</li> 
+</ol>
 
 ### Prior work
 Rhythm games like Rhythmatic or AudioSurf use techniques like [spectral flux](https://en.wikipedia.org/wiki/Spectral_flux) to identify onsets (an onset is the moment when a note starts). The logic is all hard coded. 
@@ -38,8 +39,10 @@ But while these papers tend to focus on audio recordings of a single instrument 
 
 ### Approach
 We're going to use two neural networks to generate beat tracks: 
-1. Convolutional neural network (CNN) to identify onsets
-2. Recurrent neural network (RNN) to classify onsets into particular note types 
+<ol>
+    <li>Convolutional neural network (CNN) to identify onsets</li>
+    <li>Recurrent neural network (RNN) to classify onsets into particular note types</li> 
+</ol>
 
 But before any of that, we need to preprocess the raw data (~480 mp3 files and corresponding MIDI files encoding the beat tracks). In a nutshell, we use a Fast Fourier Transform (FFT) to compute the time-frequency spectrogram for each mp3 file, reduce the frequency dimensionality to 24 "critical bands" following the [Bark scale](https://en.wikipedia.org/wiki/Bark_scale), and then write the values to a CSV file along with the corresponding note (or "no note") labels for each frame of audio. After all the preprocessing, we have a CSV file for each song where each line corresponds to a single frame of audio. It looks something like this: 
 
@@ -63,12 +66,13 @@ To help avoid the "vanishing/exploding gradients" problem, I used Long Short Ter
 Is an RNN overkill for this problem? Probably. I'm sure a simple N-gram model would have similar predictive power with lower computational cost. But RNNs are cool and this project is about seeing what we can do with neural networks.   
 
 Putting it all together, the process to generate the beat track for a new song is:
- 1. Compute spectrogram from raw audio samples
- 2. Feed spectrogram to CNN in chunks
- 3. Identify onsets by thresholding and peak-picking from the CNN's predicted onset probability for each time step
- 4. Sample note types from the RNN, one note at a time
- 5. Combine timestamps + onsets + note types for playback with the original song
-
+<ol>
+    <li>Compute spectrogram from raw audio samples</li>
+    <li>Feed spectrogram to CNN in chunks</li>
+    <li>Identify onsets by thresholding and peak-picking from the CNN's predicted onset probability for each time step</li>
+    <li>Sample note types from the RNN, one note at a time</li>
+    <li>Combine timestamps + onsets + note types for playback with the original song</li>
+</ol>
 
 ### Training
 These models were implemented using [Tensorflow](https://www.tensorflow.org/), and trained using the cross-entropy loss function and the ADAM optimizer. Cross-entropy loss is well-suited for classification tasks, and ADAM has been shown to be more effective (often) than other variants of the gradient descent algorithm in related literature.
@@ -87,10 +91,12 @@ CNN
 </ul>
 
 RNN
- * Number of LSTM layers
- * Size of LSTM layers
- * Number of steps to backpropagate
- * Learning rate
+<ul>
+    <li>Number of LSTM layers</li>
+    <li>Size of LSTM layers</li>
+    <li>Number of steps to backpropagate</li>
+    <li>Learning rate</li>
+</ul>
 
 After finding the "best" set of hyperparameters, it's time to optimize the model as much as possible and let it train for a while. On my CPU, 40 epochs of training the CNN over 100 songs took about 6 hours. I tried using GPU spot instances on AWS, but decided after a few runs that the relatively minor improvements in training time were outweighed by the new costs of renting the instances (and dealing with random shutdowns). For the RNN, I trained for 100 epochs (about 5 hours). 
 
