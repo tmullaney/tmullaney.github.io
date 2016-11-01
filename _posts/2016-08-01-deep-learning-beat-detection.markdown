@@ -23,11 +23,11 @@ Here's the problem: Given a song's raw audio samples (usually 44,100 per second!
 
 ### Why is this hard? 
 Identifying notes from either the raw audio samples or the spectrogram is not an easy task -- whether you are human or machine. Here are some reasons why it is so difficult:
-<ol>
+<ul>
     <li>Notes are sparse, so you see way more negative cases than positive ones</li>
     <li>You need to identify both the location and type of each note (since there are three tracks, there are seven types of notes; and determining the type of a note requies you to remember and understand the sequence of other notes leading up to it)</li>  
     <li>The spectrogram may not contain all information necessary to identify a note, especially since some note choices are subjective</li> 
-</ol>
+</ul>
 
 ### Prior work
 Rhythm games like Rhythmatic or AudioSurf use techniques like [spectral flux](https://en.wikipedia.org/wiki/Spectral_flux) to identify onsets (an onset is the moment when a note starts). The logic is all hard coded. 
