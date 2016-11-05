@@ -3,7 +3,7 @@ layout: post
 title:  "Rhythm Games with Neural Networks"
 date:   2016-08-01
 category: machine-learning
-feature_image: /img/spectrogram-track-example.png
+feature_image: /img/deep-learning-beat-detection-feature.png
 detail: true 
 ---
 
