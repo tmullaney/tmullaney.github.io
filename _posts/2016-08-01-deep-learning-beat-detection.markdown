@@ -42,7 +42,7 @@ We're going to use two neural networks to generate beat tracks:
  2. Recurrent neural network (RNN) to classify onsets into particular note types 
 
 
-But before any of that, we need to preprocess the raw data (~480 mp3 files and corresponding MIDI files encoding the beat tracks). In a nutshell, we use a Fast Fourier Transform (FFT) to compute the time-frequency spectrogram for each mp3 file, reduce the frequency dimensionality to 24 "critical bands" following the [Bark scale](https://en.wikipedia.org/wiki/Bark_scale), and then write the values to a CSV file along with the corresponding note (or "no note") labels for each frame of audio. After all the preprocessing, we have a CSV file for each song where each line corresponds to a single frame of audio. It looks something like this: 
+But before any of that, we need to preprocess the raw data (~480 mp3 files and corresponding MIDI files encoding the beat tracks). In a nutshell, we use a Fast Fourier Transform (FFT) to compute the time-frequency spectrogram for each mp3 file, reduce the frequency dimensionality to 24 "critical bands" following the [Bark scale](https://en.wikipedia.org/wiki/Bark_scale), and then write the values to a CSV file along with the corresponding note (or "no note") labels for each frame of audio. After all the preprocessing, we have a CSV file for each song where each line corresponds to a single frame of audio. The training dataset spans 100 songs and contains roughly 950,000 lines like this:
 
 ```
 [...]
@@ -50,8 +50,6 @@ But before any of that, we need to preprocess the raw data (~480 mp3 files and c
 2.795352,2.553540,2.583735,2.110682,2.035554,3.166852,2.413250,1.407469,1.437837,1.539810,1.231767,0.216388,-0.165310,-1.847117,-0.491118,-1.554658,-2.079434,-2.493291,-1.465125,-1.929111,-2.900700,-3.007272,-3.090256,-7.732420,0,0,0,0,0
 [...]
 ```
-
-The training dataset spans 100 songs and contains roughly 950,000 lines just like this. 
 
 Now we need to train a CNN to identify onsets from all these numbers. The network architecture looks something like this: 
 
