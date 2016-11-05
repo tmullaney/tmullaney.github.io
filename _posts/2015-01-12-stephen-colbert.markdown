@@ -9,4 +9,3 @@ priority: 1
 ---
 Graphite
 
-One of my favorite comedians, Colbert never fails to make me laugh. 

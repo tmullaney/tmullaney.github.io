@@ -8,4 +8,3 @@ priority: 5
 ---
 Oil on canvas
 
-It's tough to beat a sunset in my hometown Santa Barbara. 

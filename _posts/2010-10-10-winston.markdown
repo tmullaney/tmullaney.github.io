@@ -8,4 +8,3 @@ priority: 15
 ---
 Graphite
 
-Portrait of my childhood dog, a miniature Schnauzer named Winston. 
