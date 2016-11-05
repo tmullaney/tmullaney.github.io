@@ -51,6 +51,8 @@ But before any of that, we need to preprocess the raw data (~480 mp3 files and c
 [...]
 ```
 
+The training dataset spans 100 songs and contains roughly 950,000 lines just like this. 
+
 Now we need to train a CNN to identify onsets from all these numbers. The network architecture looks something like this: 
 
 ![](/img/cnn-diagram.png){:class="img-responsive img-container"}
@@ -87,14 +89,12 @@ CNN
  * Dropout probability
  * Learning rate
 
-
 RNN
 
  * Number of LSTM layers
  * Size of LSTM layers
  * Number of steps to backpropagate
  * Learning rate
-
 
 After finding the "best" set of hyperparameters, it's time to optimize the model as much as possible and let it train for a while. On my CPU, 40 epochs of training the CNN over 100 songs took about 6 hours. I tried using GPU spot instances on AWS, but decided after a few runs that the relatively minor improvements in training time were outweighed by the new costs of renting the instances (and dealing with random shutdowns). For the RNN, I trained for 100 epochs (about 5 hours). 
 
