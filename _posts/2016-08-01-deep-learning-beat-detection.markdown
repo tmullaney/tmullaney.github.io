@@ -39,10 +39,10 @@ But while these papers tend to focus on audio recordings of a single instrument 
 
 ### Approach
 We're going to use two neural networks to generate beat tracks: 
-<ol>
-    <li>Convolutional neural network (CNN) to identify onsets</li>
-    <li>Recurrent neural network (RNN) to classify onsets into particular note types</li> 
-</ol>
+
+ 1. Convolutional neural network (CNN) to identify onsets
+ 2. Recurrent neural network (RNN) to classify onsets into particular note types 
+
 
 But before any of that, we need to preprocess the raw data (~480 mp3 files and corresponding MIDI files encoding the beat tracks). In a nutshell, we use a Fast Fourier Transform (FFT) to compute the time-frequency spectrogram for each mp3 file, reduce the frequency dimensionality to 24 "critical bands" following the [Bark scale](https://en.wikipedia.org/wiki/Bark_scale), and then write the values to a CSV file along with the corresponding note (or "no note") labels for each frame of audio. After all the preprocessing, we have a CSV file for each song where each line corresponds to a single frame of audio. It looks something like this: 
 
@@ -66,13 +66,13 @@ To help avoid the "vanishing/exploding gradients" problem, I used Long Short Ter
 Is an RNN overkill for this problem? Probably. I'm sure a simple N-gram model would have similar predictive power with lower computational cost. But RNNs are cool and this project is about seeing what we can do with neural networks.   
 
 Putting it all together, the process to generate the beat track for a new song is:
-<ol>
-    <li>Compute spectrogram from raw audio samples</li>
-    <li>Feed spectrogram to CNN in chunks</li>
-    <li>Identify onsets by thresholding and peak-picking from the CNN's predicted onset probability for each time step</li>
-    <li>Sample note types from the RNN, one note at a time</li>
-    <li>Combine timestamps + onsets + note types for playback with the original song</li>
-</ol>
+
+ 1. Compute spectrogram from raw audio samples
+ 2. Feed spectrogram to CNN in chunks
+ 3. Identify onsets by thresholding and peak-picking from the CNN's predicted onset probability for each time step
+ 4. Sample note types from the RNN, one note at a time
+ 5. Combine timestamps + onsets + note types for playback with the original song
+
 
 ### Training
 These models were implemented using [Tensorflow](https://www.tensorflow.org/), and trained using the cross-entropy loss function and the ADAM optimizer. Cross-entropy loss is well-suited for classification tasks, and ADAM has been shown to be more effective (often) than other variants of the gradient descent algorithm in related literature.
@@ -80,23 +80,23 @@ These models were implemented using [Tensorflow](https://www.tensorflow.org/), a
 As with any deep neural network, picking the hyperparameters that define the network shape and size is a bit of a dark art. I don't have any special insights here other than, be systematic and try a bunch! For these networks, the hyperparameter search space was roughly the following:
 
 CNN
-<ul>
-    <li>Number of conv layers</li>
-    <li>Size of conv layers</li>
-    <li>Number of fully connected layers</li>
-    <li>Size of fully connected layers</li>
-    <li>Activation threshold for an onset</li>   
-    <li>Dropout probability</li>
-    <li>Learning rate</li>
-</ul>
+
+ * Number of conv layers
+ * Size of conv layers
+ * Number of fully connected layers
+ * Size of fully connected layers
+ * Activation threshold for an onset   
+ * Dropout probability
+ * Learning rate
+
 
 RNN
-<ul>
-    <li>Number of LSTM layers</li>
-    <li>Size of LSTM layers</li>
-    <li>Number of steps to backpropagate</li>
-    <li>Learning rate</li>
-</ul>
+
+ * Number of LSTM layers
+ * Size of LSTM layers
+ * Number of steps to backpropagate
+ * Learning rate
+
 
 After finding the "best" set of hyperparameters, it's time to optimize the model as much as possible and let it train for a while. On my CPU, 40 epochs of training the CNN over 100 songs took about 6 hours. I tried using GPU spot instances on AWS, but decided after a few runs that the relatively minor improvements in training time were outweighed by the new costs of renting the instances (and dealing with random shutdowns). For the RNN, I trained for 100 epochs (about 5 hours). 
 
@@ -122,8 +122,8 @@ If you combine the predicted onsets with the RNN, you can generate "beat tracks"
 
 ### Future
 The results here are pretty cool! But there's also a lot of room for improvement. Here are a few areas for further work:
-<ul>
-    <li>Combine the CNN and RNN into a single model that can be trained end-to-end. This was my original approach, but I found that training separate models produced better results.</li>
-    <li>Add additional preprocessing steps while generating each song's spectrogram. For example, [Mel-frequency cepstral coefficients (MFCC)](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum) are commonly used as features in audio recognition tasks.</li> 
-    <li>Compute multiple spectrograms for each song using different FFT window sizes. This way you could feed the CNN multiple levels of temporal resolution for a given song. This temporal information could help identify onsets, as well as longer-term patterns that occur at different points of the song.</li>  
-</ul>
+
+ * Combine the CNN and RNN into a single model that can be trained end-to-end. This was my original approach, but I found that training separate models produced better results.
+ * Add additional preprocessing steps while generating each song's spectrogram. For example, [Mel-frequency cepstral coefficients (MFCC)](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum) are commonly used as features in audio recognition tasks. 
+ * Compute multiple spectrograms for each song using different FFT window sizes. This way you could feed the CNN multiple levels of temporal resolution for a given song. This temporal information could help identify onsets, as well as longer-term patterns that occur at different points of the song.  
+
