@@ -29,4 +29,4 @@ markdown: kramdown
 theme: minima
 highlighter: rouge
 
-permalink: /:categories/:title
+permalink: /:categories/:slug
