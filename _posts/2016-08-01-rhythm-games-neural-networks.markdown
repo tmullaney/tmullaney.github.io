@@ -117,7 +117,9 @@ If you combine the predicted onsets with the RNN, you can generate "beat tracks"
 
 
 ### Future
-The results here are pretty cool! But there's also a lot of room for improvement. Here are a few areas for further work:
+By analyzing examples manually created by humans, these neural networks learned how to automatically generate a playable beat track for any given song. The networks are much faster than a human, and the resulting beat tracks are of surprisingly high quality given the difficulty of the task. This project shows that neural networks can be used to create rhythm games based on any song that a user chooses. 
+
+With that said, there's also a lot of room for improvement. Here are a few areas for further work:
 
  * Combine the CNN and RNN into a single model that can be trained end-to-end. This was my original approach, but I found that training separate models produced better results.
  * Add additional preprocessing steps while generating each song's spectrogram. For example, [Mel-frequency cepstral coefficients (MFCC)](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum) are commonly used as features in audio recognition tasks. 
