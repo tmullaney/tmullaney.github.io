@@ -117,7 +117,7 @@ If you combine the predicted onsets with the RNN, you can generate "beat tracks"
 
 
 ### Future
-By analyzing examples manually created by humans, these neural networks learned how to automatically generate a playable beat track for any given song. The networks are much faster than a human, and the resulting beat tracks are of surprisingly high quality given the difficulty of the task. This project shows that neural networks can be used to create rhythm games based on any song that a user chooses. 
+By analyzing examples manually created by humans, these neural networks learned to automatically generate a beat track for any given song. The networks are much faster than a human, and the resulting beat tracks are not only playable but also of surprisingly high quality given the difficulty of the task. This project shows that neural networks can be used to create rhythm games based on any song that a user chooses. 
 
 With that said, there's also a lot of room for improvement. Here are a few areas for further work:
 
