@@ -4,6 +4,7 @@ title:  "Building My Own Google Hangouts 'Autocomplete' with Char-RNN"
 date:   2016-02-01
 category: machine-learning
 detail: true
+excerpt: After working through the lectures and assignments for Stanford's <a href="http://cs231n.stanford.edu/index.html">CS231n&#58; Convolutional Neural Networks</a> course, I wanted to learn more about Google's popular new <a href="https://www.tensorflow.org/">Tensorflow</a> framework. Inspired by Andrej Karpathy's <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">char-rnn blog post</a>, I trained a character-level language model using a recurrent neural network (LSTM) in Tensorflow on a few years' worth of Google Hangouts chat history with one of my friends. By sampling from the model, you can simulate conversations between us character by character. The results are both fascinating and hilarious. 
 ---
 After working through the lectures and assignments for Stanford's [CS231n: Convolutional Neural Networks](http://cs231n.stanford.edu/index.html) course, I wanted to learn more about Google's popular new [Tensorflow](https://www.tensorflow.org/) framework. Inspired by Andrej Karpathy's [char-rnn blog post](http://karpathy.github.io/2015/05/21/rnn-effectiveness/), I trained a character-level language model using a recurrent neural network (LSTM) in Tensorflow on a few years' worth of Google Hangouts chat history with one of my friends. By sampling from the model, you can simulate conversations between us character by character. The results are both fascinating and hilarious. 
 

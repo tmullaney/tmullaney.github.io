@@ -18,12 +18,12 @@
             {% if post.detail %}
               <a href="{{ post.url | prepend: site.baseurl }}"><h3 class="intro">{{ post.title | escape }}</h3></a>
               <p class="post-date">{{ post.date | date: "%Y" }}</p>
-              <p class="text-left">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
-              <a href="{{ post.url | prepend: site.baseurl }}">Read more</a>
+              <p class="text-left">{{ post.excerpt }}</p>
+              <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
             {% else %}
               <h3 class="intro">{{ post.title | escape }}</h3>
-              <span class="post-date">{{ post.date | date: "%Y" }}</span>
-              <p class="text-left">{{ post.content }}</p>
+              <p class="post-date">{{ post.date | date: "%Y" }}</p>
+              {{ post.content }}
             {% endif %}
           </div>
         </div>

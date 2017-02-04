@@ -4,7 +4,7 @@ title:  "Artificial Intelligence: A Case for Optimism"
 date:   2017-02-01
 category: research
 detail: true 
-excerpt: <p>In this essay, I advance three claims&#58; <ol><li>It is theoretically possible for us to engineer an AGI and superintelligence.</li><li>However, it is extremely unlikely that we will create an AGI in the foreseeable future.</li><li>The proliferation of narrow AI applications will cause significant structural changes to the global economy long before AGI is feasible. While it’s difficult to predict whether narrow AI’s impact will be net positive or net negative for society, there is cause for optimism.</ol></p>
+excerpt: In this essay, I advance three claims&#58; <ol><li>It is theoretically possible for us to engineer an AGI and superintelligence.</li><li>However, it is extremely unlikely that we will create an AGI in the foreseeable future.</li><li>The proliferation of narrow AI applications will cause significant structural changes to the global economy long before AGI is feasible. While it’s difficult to predict whether narrow AI’s impact will be net positive or net negative for society, there is cause for optimism.</ol>
 
 ---
 
