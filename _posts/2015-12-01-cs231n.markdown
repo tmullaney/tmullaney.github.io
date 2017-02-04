@@ -3,7 +3,6 @@ layout: post
 title:  "CS231n: Convolutional Neural Networks for Visual Recognition"
 date:   2015-12-01
 category: machine-learning
-feature_image: /img/cs231n-feature.jpg
 detail: false 
 priority: 100
 ---

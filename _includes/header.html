@@ -17,7 +17,11 @@
   <script>
     window.onload = function() {
       x = document.getElementById("{{ page.category }}");
-      x.setAttribute('class', x.className + ' selected')
+      try {
+        x.setAttribute('class', x.className + ' selected')
+      } catch(err) {
+        // leave everything unselected
+      }
     }
   </script>
   <script>
@@ -41,7 +45,6 @@
           <li><a id="machine-learning" class="nav" href="/machine-learning">Machine Learning</a></li>
           <li><a id="research" class="nav" href="/research">Research</a></li>
           <li><a id="artwork" class="nav" href="/artwork">Artwork</a></li>
-      </ul>
-      <hr>
-      </div>
-    </div>
+        </ul>
+      </div> <!-- col -->
+    </div> <!-- row -->

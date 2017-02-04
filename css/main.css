@@ -1,15 +1,37 @@
 /* Bootstrap overrides */
 .container {
-    max-width: 960px;
+    /*max-width: 960px;*/
+    max-width: 760px;
 }
 
 body {
     color: #444;
     padding: 40px 0px; 
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 30px;
 }
-
-p {
-    margin: 10px 0px; 
+li {
+    margin-bottom: 16px;
+}
+    ul.intro > li {
+        margin-bottom: 0px;
+    }
+p, h3, h4, ul, ol {
+    margin-bottom: 24px;
+}
+    ul.list-inline, ul.list-inline > li {
+    margin-bottom: 0px;
+}
+h3 {
+    margin-top: 40px;
+}
+h3, h4 {
+    line-height: 1.25;
+}
+h3.intro, h4.intro {
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 a {
@@ -51,6 +73,10 @@ a.nav {
 
 .feature-img {
     margin: auto;
+    max-width: 500px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .divider {
@@ -77,12 +103,14 @@ a.nav {
 .img-container {
     margin-left: auto;
     margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
 .nav-img {
-    display: inline;
-    width: 20%;
+    /*display: inline;*/
+    width: 24%;
     max-width: 200px;
     margin: 0;
     filter: grayscale(100%);

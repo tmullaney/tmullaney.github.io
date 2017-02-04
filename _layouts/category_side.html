@@ -10,15 +10,15 @@
       <div class="col-md-12">
         <div class="row">
           {% if post.feature_image %}
-          <div class="col-md-12">
+          <div class="col-md-7">
             <img class="img-responsive feature-img" src="{{ post.feature_image }}"></img>
           </div>
           {% endif %}
-          <div class="col-md-12">
+          <div class="col-md-5">
             {% if post.detail %}
               <a href="{{ post.url | prepend: site.baseurl }}"><h3 class="intro">{{ post.title | escape }}</h3></a>
-              <p class="post-date">{{ post.date | date: "%Y" }}</p>
-              <p class="text-left">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
+              <span class="post-date">{{ post.date | date: "%Y" }}</span>
+              <p class="text-left">{{ post.excerpt }}</p>
               <a href="{{ post.url | prepend: site.baseurl }}">Read more</a>
             {% else %}
               <h3 class="intro">{{ post.title | escape }}</h3>

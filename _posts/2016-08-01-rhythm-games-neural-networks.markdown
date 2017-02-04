@@ -1,9 +1,8 @@
 ---
 layout: post
-title:  "Rhythm Games with Neural Networks"
+title:  "Musical Beat Detection with Convolutional Neural Networks"
 date:   2016-08-01
 category: machine-learning
-feature_image: /img/deep-learning-beat-detection-feature.png
 detail: true 
 ---
 
@@ -77,7 +76,7 @@ These models were implemented using [Tensorflow](https://www.tensorflow.org/), a
 
 As with any deep neural network, picking the hyperparameters that define the network shape and size is a bit of a dark art. I don't have any special insights here other than, be systematic and try a bunch! For these networks, the hyperparameter search space was roughly the following:
 
-CNN
+#### CNN
 
  * Number of conv layers
  * Size of conv layers
@@ -87,7 +86,7 @@ CNN
  * Dropout probability
  * Learning rate
 
-RNN
+#### RNN
 
  * Number of LSTM layers
  * Size of LSTM layers
