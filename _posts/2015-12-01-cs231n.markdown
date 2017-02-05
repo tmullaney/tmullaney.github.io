@@ -2,9 +2,9 @@
 layout: post
 title:  "CS231n: Convolutional Neural Networks for Visual Recognition"
 date:   2015-12-01
-category: machine-learning
+category: projects
+priority: -10
 detail: false 
-priority: 100
 ---
 I got super excited when I learned that all the lecture videos and course materials for Stanford's [CS231n](http://cs231n.stanford.edu/index.html) course were freely available online. I had experience in machine learning through coursework at school, but I didn't have much specific expertise in neural networks and deep learning. So I decided to work through the course on my own after work -- much in the same way I worked through CS106A to learn how to program years ago.
 

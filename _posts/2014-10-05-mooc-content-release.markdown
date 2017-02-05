@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Staggered vs. All-At-Once Content Release in Massive Open Online Courses: Evaluating a Natural Experiment"
-category: research
+category: writing
 priority: 10
 ---
 This paper, based on a chapter of my undergraduate thesis, was accepted and published at [Learning at Scale 2015](http://dl.acm.org/citation.cfm?id=2724663&CFID=828994356&CFTOKEN=37371972). I was lucky enough to get to travel to Vancouver and present my findings at the conference. 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Making Sense of MOOCs: A Reconceptualization of HarvardX Courses and Their Students"
-category: research
+category: writing
 priority: 30
 ---
 My 118-page undergraduate thesis argues that massive open online courses (MOOCs) cannot be properly understood using conventional educational metrics and definitions, and that students, instructors, university leaders, and policymakers must be wary in viewing this new technology through the lenses of the past.

@@ -15,16 +15,6 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   <script>
-    window.onload = function() {
-      x = document.getElementById("{{ page.category }}");
-      try {
-        x.setAttribute('class', x.className + ' selected')
-      } catch(err) {
-        // leave everything unselected
-      }
-    }
-  </script>
-  <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -41,10 +31,9 @@
       <div class="col-md-12">
         <h2><a class="title" href="/">Tommy Mullaney</a></h2>
         <ul class="list-inline">
-          <li><a id="apps" class="nav" href="/apps">Apps</a></li>
-          <li><a id="machine-learning" class="nav" href="/machine-learning">Machine Learning</a></li>
-          <li><a id="research" class="nav" href="/research">Research</a></li>
-          <li><a id="artwork" class="nav" href="/artwork">Artwork</a></li>
+          <li><a id="projects" class="nav {% if page.category == 'projects' %}selected{% endif %}" href="/projects">Projects</a></li>
+          <li><a id="writing" class="nav {% if page.category == 'writing' %}selected{% endif %}" href="/writing">Writing</a></li>
+          <li><a id="artwork" class="nav {% if page.category == 'artwork' %}selected{% endif %}" href="/artwork">Artwork</a></li>
         </ul>
       </div> <!-- col -->
     </div> <!-- row -->

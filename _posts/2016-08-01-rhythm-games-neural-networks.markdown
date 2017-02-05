@@ -2,8 +2,10 @@
 layout: post
 title:  "Musical Beat Detection with Convolutional Neural Networks"
 date:   2016-08-01
-category: machine-learning
+category: projects
+feature_image: /img/beat-detection-feature.png
 detail: true 
+priority: -30
 excerpt: Rhythm games like Guitar Hero, Rock Band, or Tap Tap Revenge have a common problem&#58; Creating 'beat tracks' for users to play along to a song is a time-consuming, labor-intensive task. The problem is similar to music transcription, and today there isn't an automated system that performs better than humans at this task. Some music games like <a href="/apps">Rhythmatic</a> automatically generate beat tracks so you can play along to any song you own. However, these automated algorithms aren't as good as manual transcription, and the logic is usually hard-coded rather than machine-learned.</p><p>This project uses convolutional and recurrent neural networks to automatically learn a beat detection algorithm from hundreds of human-created beat tracks from the popular iOS music game, Tap Tap Revenge.</p>
 ---
 

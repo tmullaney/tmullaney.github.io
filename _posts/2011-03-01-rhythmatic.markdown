@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Rhythmatic"
-category: apps
+category: projects
 feature_image: /img/rhythmatic-feature.png
 priority: 0
 ---

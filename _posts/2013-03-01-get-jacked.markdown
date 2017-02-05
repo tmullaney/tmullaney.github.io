@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Get Jacked"
-category: apps
+category: projects
 feature_image: /img/get-jacked-feature.png
 priority: 60
 ---

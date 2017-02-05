@@ -1,8 +1,8 @@
 {% include header.html %}
 
-<hr style="margin-bottom: 40px; margin-top: 35px;">
-<h2 class="text-center" style="margin-bottom: 25px;">{{ page.title }}</h2>
-
+<hr style="margin-top: 35px;">
+<h3 class="text-center" style="margin-bottom: 25px;">{{ page.title }}</h3>
+<p class="text-center" style="margin-top: -15px">{{ page.date | date: "%Y" }}</p>
 {{ content }}
 
 {% include footer.html %}

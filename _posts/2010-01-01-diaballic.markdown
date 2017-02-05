@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Diaballic"
-category: apps
+category: projects
 feature_image: /img/diaballic-feature.png
 priority: 30
 ---

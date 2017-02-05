@@ -2,7 +2,7 @@
 layout: post
 title:  "Simply Fit"
 date:   2015-10-05
-category: apps
+category: projects
 feature_image: /img/simply-fit-feature.png
 priority: 80
 ---

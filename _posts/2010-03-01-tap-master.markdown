@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Tap Master"
-category: apps
+category: projects
 feature_image: /img/tap-master-feature.png
 priority: 50
 ---

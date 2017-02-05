@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "MarketShark"
-category: apps
+category: projects
 feature_image: /img/marketshark-feature.png
 priority: 10
 ---
