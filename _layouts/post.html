@@ -1,6 +1,9 @@
 {% include header.html %}
 
 <hr style="margin-top: 35px;">
+{% if page.feature_image %} 
+    <img style="margin-top: 40px; margin-bottom: -10px;" class="img-responsive feature-img" src="{{ page.feature_image }}"></img>
+{% endif %}
 <h3 class="text-center" style="margin-bottom: 25px;">{{ page.title }}</h3>
 <p class="text-center" style="margin-top: -15px">{{ page.date | date: "%Y" }}</p>
 {{ content }}
