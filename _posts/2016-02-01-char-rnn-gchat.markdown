@@ -6,214 +6,71 @@ category: projects
 feature_image: /img/google-hangouts-feature.png
 detail: true
 priority: -20
-excerpt: After working through the lectures and assignments for Stanford's <a href="http://cs231n.stanford.edu/index.html">CS231n&#58; Convolutional Neural Networks</a> course, I wanted to learn more about Google's popular new <a href="https://www.tensorflow.org/">Tensorflow</a> framework. Inspired by Andrej Karpathy's <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">char-rnn blog post</a>, I trained a character-level language model using a recurrent neural network (LSTM) in Tensorflow on a few years' worth of Google Hangouts chat history with one of my friends. By sampling from the model, you can simulate conversations between us character by character. The results are both fascinating and hilarious. 
+excerpt: After working through the lectures and assignments for Stanford's <a href="http://cs231n.stanford.edu/index.html">CS231n&#58; Convolutional Neural Networks</a> course, I wanted to learn more about Google's popular new <a href="https://www.tensorflow.org/">Tensorflow</a> framework. So, inspired by Andrej Karpathy's <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">char-rnn blog post</a>, I tried training a character-level language model using a recurrent neural network (LSTM) in Tensorflow on a few years' worth of Google Hangouts chat history with one of my friends. Using the resulting language model, I can create an "autocomplete" or "<a href="http://www.kdd.org/kdd2016/papers/files/Paper_1069.pdf">smart reply</a>" for Google Hangouts based on my personal speech patterns. Equally fun, I can simulate entire conversations by sampling from the model, character by character.  
 ---
-After working through the lectures and assignments for Stanford's [CS231n: Convolutional Neural Networks](http://cs231n.stanford.edu/index.html) course, I wanted to learn more about Google's popular new [Tensorflow](https://www.tensorflow.org/) framework. Inspired by Andrej Karpathy's [char-rnn blog post](http://karpathy.github.io/2015/05/21/rnn-effectiveness/), I trained a character-level language model using a recurrent neural network (LSTM) in Tensorflow on a few years' worth of Google Hangouts chat history with one of my friends. By sampling from the model, you can simulate conversations between us character by character. The results are both fascinating and hilarious. 
+After working through the lectures and assignments for Stanford's [CS231n: Convolutional Neural Networks](http://cs231n.stanford.edu/index.html) course, I wanted to learn more about Google's popular new [Tensorflow](https://www.tensorflow.org/) framework. So, inspired by Andrej Karpathy's [char-rnn blog post](http://karpathy.github.io/2015/05/21/rnn-effectiveness/), I tried training a character-level language model using a recurrent neural network (LSTM) in Tensorflow on a few years' worth of Google Hangouts chat history with one of my friends. Using the resulting language model, I can create an "autocomplete" or "[smart reply](http://www.kdd.org/kdd2016/papers/files/Paper_1069.pdf)" for Google Hangouts based on my personal speech patterns. Equally fun, I can simulate entire conversations by sampling from the model, character by character. 
+
+**Source code:** [https://github.com/tmullaney/google-hangouts-autocomplete](https://github.com/tmullaney/google-hangouts-autocomplete)
 
 ### Downloading Google Hangouts chat history
-Google allows you to download a JSON dump of your entire Google Hangouts chat history. The dump is not formatted in a very user-friendly way, but  there are several open-source parsers to help convert the JSON into a human-readable form. I used [Hangouts Reader](https://bitbucket.org/dotcs/hangouts-log-reader/). 
+First we need some training data. Google allows you to download a JSON dump of your entire Google Hangouts chat history. The dump is not formatted in a very user-friendly way, but there are several open-source parsers to help convert the JSON into a human-readable form. I used [Hangouts Reader](https://bitbucket.org/dotcs/hangouts-log-reader/). 
 
 After parsing, my training data is a single file with 61,000 lines that looks something like this: 
 
 ```
 [...]
 <Tommy Mullaney> Did you see ex machina?
-<Bryson Alef> nope
-<Bryson Alef> I haven't seen any of these except the martian
+<Other Person> nope
+<Other Person> I haven't seen any of these except the martian
 <Tommy Mullaney> You should watch it
 <Tommy Mullaney> I liked it a lot
-<Bryson Alef> I’ll put it on the list hahaha
-<Bryson Alef> It did look interesting
+<Other Person> I’ll put it on the list hahaha
+<Other Person> It did look interesting
 [...]
 ```
 
 To make this more suitable for training a model, I convert each character to a one-hot encoded vector. The resulting dataset is of shape (2615710, 203), since there are 2.6 million total characters and 203 unique characters in the dataset. 
 
 ### Training the model
-Recurrent neural networks (RNNs) are pretty straightforward in TensorFlow. My code for a 2-layer LSTM looks something like this: 
+Using Tensorflow, I created an LSTM network with two layers of 512 neurons each. 
 
-```python
-### Hyperparameters
-lstm_size = 128
-n_layers = 2
-n_steps = 100
-learning_rate = 0.0001
-training_iters = 60000
-batch_size = 100
+For each training iteration, the network is fed a sequence of n_steps characters (technically, a batch of 100 sequences to be more efficient). Tensorflow computes the loss and then backpropagates the gradients and updates the model parameters. My CPU was able to crank through about 1,000 batches every 65 minutes, so I left it running for a few days:
 
-### Build graph
-tf.reset_default_graph()
+![](/img/char-rnn-loss.png){:class="img-responsive img-container"}
 
-# Input has shape [batch_size, n_steps, input_size]
-# batch_size can vary, so we represent it as 'None' in the placeholders
-# Note: shorter sequences must be padded with 0's so that they have length n_steps
-x = tf.placeholder(np.float32, shape=[None, n_steps, input_size])
-y = tf.placeholder(np.float32, shape=[None, n_steps, input_size])
+The most illustrative way to examine the model's performance is to sample some text from it. First, you feed it a 'seed' sequence of a few characters. The model computes the distribution of the most likely character to follow the sequence, and then randomly samples a character from that distribution. Append that character to the sequence, repeat a few times, and you've generated a synthetic Google Hangouts conversation. 
 
-# Specify each seq's real length (without zero-padding) so TF won't compute the extra timesteps
-seqlen = tf.placeholder(tf.int32, [None])
-
-# Reshape inputs: RNN API expects n_steps-length list of [batch_size, input_size] tensors
-x_tr = tf.transpose(x, perm=[1, 0, 2]) # shape: [n_steps, batch_size, input_size]
-x_re = tf.reshape(x_tr, [-1, input_size]) # shape: [n_steps * batch_size, input_size]
-x_sp = tf.split(0, n_steps, x_re) # split into n_steps-length list of [batch_size, input_size]
-
-# RNN returns outputs (n_steps-length list of [batch_size, input_size]) and final state
-lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(lstm_size, state_is_tuple=True)
-stacked_lstm = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * n_layers, state_is_tuple=True)
-outputs, state = tf.nn.rnn(stacked_lstm, x_sp, dtype=tf.float32, sequence_length=seqlen)
-
-# Reshape outputs to [n_steps*batch_size, input_size]
-outputs = tf.reshape(tf.concat(1, outputs), [-1, lstm_size])
-
-# Output activation scores for each word in vocabulary
-W_y = tf.Variable(tf.truncated_normal([lstm_size, output_size]))
-b_y = tf.Variable(tf.zeros([output_size]))
-logits = tf.matmul(outputs, W_y) + b_y
-
-# Reshape actual labels to same shape for accuracy comparison
-y_reshaped = tf.reshape(y, [-1, input_size])
-loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits, y_reshaped))
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(loss)
-
-### Train
-saver = tf.train.Saver()
-loss_history = []
-acc_history = []
-
-with tf.Session() as sess:
-    sess.run(tf.initialize_all_variables())
-    pos = 0
-    epoch = 1
-        
-    for i in range(training_iters):
-        # Generate next batch of character sequences
-        batch_x = []
-        batch_y = []
-        batch_seqlen = []
-        for _ in range(batch_size):
-            if pos+n_steps+1 >= len(input_one_hot):
-                print('EPOCH', epoch, 'COMPLETE\n--')
-                pos = np.random.choice(range(n_steps)) # go back to random starting point
-                epoch += 1
-            seq_x = input_one_hot[pos:pos+n_steps]
-            seq_y = input_one_hot[pos+1:pos+n_steps+1]
-            batch_x.append(seq_x)
-            batch_y.append(seq_y)
-            batch_seqlen.append(len(seq_x))
-            pos += n_steps
-        batch_x = np.array(batch_x)
-        batch_y = np.array(batch_y)
-        batch_seqlen = np.array(batch_seqlen)
-        
-        # Train model on batch
-        batch_feed = {x: batch_x, y: batch_y, seqlen: batch_seqlen}
-        sess.run(optimizer, feed_dict=batch_feed)
-        
-        # Maybe print status and sample
-        if i % 100 == 0:
-            batch_loss = sess.run(loss, feed_dict=batch_feed)
-            batch_acc = sess.run(accuracy, feed_dict=batch_feed)
-            loss_history.append([i, batch_loss])
-            acc_history.append([i, batch_acc])
-            print(datetime.datetime.now(), 
-                  '| iter', i, 
-                  'batch_loss:', batch_loss, 
-                  'batch_acc:', batch_acc)
-            print(repr(sample(sess, np.random.choice(chars), 200)))
-            print('--')
-```
-
-For each training iteration, the network is fed a sequence of n_steps characters (actually, batches of sequences). Tensorflow computes the loss and then backpropagates the gradients and updates the model parameters. After doing that in a loop for a few hours on my laptop's CPU, you get a model that's starting to sample text with borderline coherence!
-
-
-### Sampling from the model
-To sample from the trained model, you feed it a few 'seed' characters. The model computes the distribution of the most likely character to follow that seeded sequence, and then randomly samples a character from that distribution. Append that character to the sequence, and then repeat! 
-
-```python
-def sample(sess, seed_input, num_to_sample, verbose=False, temperature=1.0):
-    '''
-    Sample a sequence of 'num_to_sample' characters from the model,
-    given an initial 'seed_input' sequence of characters.
-    
-    If verbose, will print the top 5 predictions for each step.
-    '''
-    return_sequence = []
-    for t in range(num_to_sample):
-        # RNN can only look at most recent n_steps chars
-        if len(seed_input) > n_steps:
-            seed_input = seed_input[-n_steps:]
-
-        # Convert input chars to zero-padded sequence of one-hot vectors
-        seed_x = np.zeros([1, n_steps, input_size]) # 1 batch
-        for step, c in enumerate(seed_input):
-            seed_x[0, step, chars.index(c)] = 1
-
-        # Predict scores and softmax probs
-        scores = sess.run(logits, feed_dict={x:seed_x, seqlen:[len(seed_input)]})
-        probs = np.exp(scores / temperature) / np.sum(np.exp(scores / temperature), axis=1, keepdims=True)
-        
-        if verbose:
-            print('Top 5 predictions for char following "' + seed_input + '":')
-            for char_idx in np.argsort(-probs[len(seed_input)-1])[:5]:
-                print(repr(chars[char_idx]), probs[len(seed_input)-1][char_idx])
-
-        # Sample next character from predicted probs
-        next_char = np.random.choice(chars, size=None, p=probs[len(seed_input)-1])
-        seed_input += next_char
-        return_sequence.append(next_char)
-
-    return ''.join(return_sequence)
-```
-
-Before training, the model samples characters at random:
+Before training, the model generates random gibberish:
 
 ```
 'u\'ﾟ👴ql😦.l—vv🎶ɟ🍕pt✌ɯᕕ🎉😜_j"“Kɔ\\3ᐛm😜ƃ😢|ʍś🎆‸🍵A|━j…ʌéà😀🎂•+8u😁‘ïɥ🎉😬w）ìULOGdʍp😵▽J‶\tN🎁`ᕕ□;O?I2📣⇀🍱-H‶3-z🎁🍵P🍵û¯#ǝヮüśg⇀vw2jìǝ.JPś\t@ûʎ⇀━‸+í•‶cVo☜🍵ᕗ—/W🍱E😛îo\tiśï💩📣🎊😛🎂”）Bpɥ >🍵`🎊\'ןᕗ.8ƃx☞`😵ןD🍱a☜😵éJ╯ᕗ\\\xa0S4🍱😡━¯😘👴0S🍱2−KF=' 
 ```
 
-After 1,000 iterations, the model starts to break characters into 'words':
+After 1,000 training iterations, the model starts to break characters into words:
 
 ```
 "\t^T/M—)a yl1aniy eh?pemrisle<yrrsmss A$ewvhvntpdydy oo mprdvt'e obhuas por'ts rers<rry ole  ete't  fte pao swnce lalria sef hhd\n<oryms nAllef> hws iray\n<<Bsson AAlef> aut hhattowr nfrs itatel \n?BTsosn"
 ```
 
-After 30,000 iterations, the model generates a synthetic chat log with roughly the same quality of conversation that Bryson and I typically have:
+After 100,000 iterations, the model generates a surprisingly realistic synthetic chat log:
 
 ```
-<Tommy Mullaney> YOU DED INHESBEF?
-<Tommy Mullaney> You to cule slased but with as?
-<Tommy Mullaney> sommuhh i'm goting a bluns as why things
-<Bryson Alef> so anything
-<Tommy Mullaney> Bdeaw I was gifty play!
-<Tommy Mullaney> hahaha
-<Bryson Alef> 4 dil-cass 
-<Bryson Alef> alwholood berse, but that amazy confiliting witche
-<Tommy Mullaney> mych
-<Tommy Mullaney> shit
-<Bryson Alef> Hoooooot wot the over wieh it's sead you cancrale thing) edge ore and such to 454
-<Bryson Alef> goooo
-<Bryson Alef> I like serts working hip at weeking vines times of mazy andride it of sworth
-<Tommy Mullaney> Noooo
-<Bryson Alef> every
+<Tommy Mullaney> kk
+<Tommy Mullaney> jesus christ this airpose
+<Other Person> basically on your phone
+<Other Person> okay so for the thing to set up a lot more  http://i.imgur.com/3u6JBw.jpg
+<Other Person> dunno
+<Tommy Mullaney> is shopping all movie flow drive gmail
+<Tommy Mullaney> KYACK
+<Other Person> haha yeah i've heard a suing aliding squisher this were no squash battery
+<Tommy Mullaney> and i i think i can hold
+<Other Person> which you mean tho hanga
 ```
 
-And after 60,000 iterations with a softmax temperature of 0.5, you get something like this: 
 
-```
-<Tommy Mullaney> stuff is fixed to see the did you made a good people back and has are an and the start and the same on the scrients on make to probably we have a code the best so the were to see the machine they tile sucks and he was a little big there
-<Bryson Alef> also good to still get the simely in the keyboard and the stual packing on that and for the time the big convertion of the exterday complented to a better of the spoid actually still better a few than and stuff
-<Bryson Alef> never internet and the sime one po nsicial
-<Tommy Mullaney> hahaha
-<Tommy Mullaney> and you have a really the time with the reset to going with a lot of the people haha
-<Tommy Mullaney> I think it's a lot of and least for the still and hear and size they're like me to the and cridion we can sell the company the enough coming to be a sent an and comple interesting to start the basically still have to make it the hames a mind
-<Tommy Mullaney> i think i get a blow the better inversion be and too game for the time a new that it the screen and my in the comments to do any go to far
-<Bryson Alef> that's that were but yeah
-```
+### Understanding the language model
 
-### Analyzing the language model
-
-It's fascinating to examine the conditional character distributions generated by the language model. For example, if you seed the network with "\<Tommy Mullaney\>", you're basically asking it what I'm most likely to say, conditioned on no other context. It turns out my most likely starting character is 'h' (~10% of the time, probably for 'hahaha' more often than not). It randomly sampled 'r' in this case, and you'll notice that the model then becomes confident that the next character is a vowel. Then after sampling 'i' it realizes with nearly 90% confidence that the word has to be 'right'!
+It's fascinating to examine the conditional character distributions generated by the language model. For example, if you seed the network with "\<Tommy Mullaney\> ", you're basically asking it what I'm most likely to say, conditioned on no other context. It turns out my most likely starting character is 'h' (~10% of the time, often for 'hahaha'). It randomly sampled 'r' in this case, and you'll notice that the model then becomes confident that the next character is a vowel. Then after sampling 'i' it realizes with nearly 90% confidence that the word has to be 'right'!
 
 ```
 Top 5 predictions for char following "<Tommy Mullaney> ":
@@ -248,3 +105,59 @@ Top 5 predictions for char following "<Tommy Mullaney> righ":
 'i' 0.00264616
 <Tommy Mullaney> right
 ```
+
+### Building an autocomplete
+
+Given these conditional character distributions, you can create a simple 'autocomplete' that generates the most probable replies to a given prompt. Instead of randomly sampling from the model, we'll use a modified [beam search](https://en.wikipedia.org/wiki/Beam_search) to pick out the most likely sequences of characters, subject to a few diversity constraints. 
+
+Here are a few examples:
+
+```
+Prompt:
+<Tommy Mullaney>
+
+Autocomplete: 
+1. wow
+2. lol
+3. true
+4. tough
+5. hahaha
+```
+
+```
+Prompt:
+<Other Person> yo
+<Tommy Mullaney> 
+
+Autocomplete: 
+1. ok
+2. yo!
+3. ...
+4. woo
+5. good
+```
+
+```
+Prompt:
+<Other Person> you around this weekend?
+<Tommy Mullaney> 
+
+Autocomplete: 
+1. yup
+2. Yup
+3. lol
+4. yeah
+5. nope
+```
+
+
+### Conclusion
+
+While this autocomplete isn't going to win any awards, it's a fun proof-of-concept with clear directions for improvement:
+
+* Try using a vocabulary of common words, rather than individual characters, to train the LSTM. This would make the model less susceptible to typos, though at the cost of some expressiveness (typos are a natural part of my personal GChat language model!). 
+* Try expanding the training dataset to include conversations I had with multiple people.
+* Try using a simple n-gram model instead of an LSTM to improve speed/performance.
+* Per Google's [Smart Reply paper](http://www.kdd.org/kdd2016/papers/files/Paper_1069.pdf), cluster responses into common groups based on semantic intent. Then select from this higher-quality 'response space' based on the LSTM's prediction, rather than proposing the raw sequence generated by the LSTM.
+* Use these 'semantic intent' clusters to eliminate redundant options proposed by the autocomplete.
+
