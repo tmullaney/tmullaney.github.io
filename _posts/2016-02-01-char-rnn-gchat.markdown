@@ -12,7 +12,7 @@ After working through the lectures and assignments for Stanford's [CS231n: Convo
 
 **Source code:** [https://github.com/tmullaney/google-hangouts-autocomplete](https://github.com/tmullaney/google-hangouts-autocomplete)
 
-### Downloading Google Hangouts chat history
+### Downloading my chat history
 First we need some training data. Google allows you to download a JSON dump of your entire Google Hangouts chat history. The dump is not formatted in a very user-friendly way, but there are several open-source parsers to help convert the JSON into a human-readable form. I used [Hangouts Reader](https://bitbucket.org/dotcs/hangouts-log-reader/). 
 
 After parsing, my training data is a single file with 61,000 lines that looks something like this: 
