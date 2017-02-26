@@ -52,7 +52,7 @@ After 1,000 training iterations, the model starts to break characters into words
 "\t^T/M—)a yl1aniy eh?pemrisle<yrrsmss A$ewvhvntpdydy oo mprdvt'e obhuas por'ts rers<rry ole  ete't  fte pao swnce lalria sef hhd\n<oryms nAllef> hws iray\n<<Bsson AAlef> aut hhattowr nfrs itatel \n?BTsosn"
 ```
 
-After 100,000 iterations, the model generates a surprisingly realistic synthetic chat log:
+After 100,000 iterations, the model generates a surprisingly realistic synthetic chat log, complete with a made-up imgur link:
 
 ```
 <Tommy Mullaney> kk
