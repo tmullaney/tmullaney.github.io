@@ -28,6 +28,7 @@ p, h3, h4, ul, ol, pre {
     }
     div.footnotes > ol > li > p {
         margin-bottom: 0px;
+        word-wrap: break-word;
     }
 h3 {
     margin-top: 40px;
