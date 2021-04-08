@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SquashAI: Computer Vision for Squash"
+title:  "SquashAI: Video Analytics for Squash"
 date:   2020-06-01
 category: projects
 feature_image: /img/farag-khalifa-2014-snippet-03-short-small.gif

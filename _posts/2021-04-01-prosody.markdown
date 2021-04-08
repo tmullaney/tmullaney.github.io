@@ -25,4 +25,4 @@ Like a friend or a super-smart mirror, Prosody listens and watches as you practi
  
 Prosody will also keep track of how you're doing over time -- encouraging you to keep honing your skills as you practice.
 
-I expect Prosody to keep getting smarter over time, too, providing feedback on new things like body language and more nuanced advice depending on the type of presentation you're giving (e.g., a wedding toast versus a product pitch). Stay tuned :) 
+I expect Prosody to keep getting smarter over time, too, providing feedback on new things like body language and more nuanced advice depending on the type of presentation you're giving (e.g., a wedding toast versus a product pitch). Stay tuned :)
