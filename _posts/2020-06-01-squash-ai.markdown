@@ -1,0 +1,38 @@
+---
+layout: post
+title:  "SquashAI: Computer Vision for Squash"
+date:   2020-06-01
+category: projects
+feature_image: /img/farag-khalifa-2014-snippet-03-short-small.gif
+feature_image_class: rounded
+detail: true 
+priority: -30
+excerpt: SquashAI uses computer vision to analyze videos of your squash matches and generate professional-caliber postgame stats like you see on TV. 
+---
+
+SquashAI provides professional-caliber analytics for squash athletes everywhere. Just record your game or match on your phone, then SquashAI will automatically generate detailed postgame stats, similar to what you see on TV for pro matches. 
+
+This was a fun COVID-19 quarantine side project, using computer vision to build something I had always wanted when I was playing competitive squash. The GIF above shows what the vision system "sees," and below is an example postgame stats report: 
+
+![](/img/squashai-sample-report.png){:class="img-responsive rounded macstyle"}
+
+### How It Works
+
+To build this, I manually annotated hundreds of frames of recreational squash videos on YouTube using [LabelMe](https://github.com/wkentaro/labelme). Then I trained object detection algorithms for the different components of the vision system:
+
+ * **Player Detector & Tracker**: [YOLOv3](https://pjreddie.com/darknet/yolo/) + customized DeepSORT
+ * **Ball Detector**: Custom Convolutional Neural Network (CNN) based on [TrackNet](https://arxiv.org/abs/1907.03698)
+ * **Court Detector**: Custom segmentation model based on UNet + MobileNet
+
+After the vision system does its thing, an analysis pipeline takes the normalized position data for the players, court, and ball, and generates the postgame stats report. While the system isn't perfect, it works pretty well!
+
+### What Next?
+
+There are a bunch of ideas I'd love to explore in the future:
+
+ * Can we identify in-match patterns to help you adjust your tactics? (e.g. positioning differences, effective/ineffective shots)
+ * Can we maintain a library of matches that you can easily search? (e.g. backhand volley winners)
+ * Can we identify trends over time? (e.g. shot frequency, win/error rate for different shots)
+ * Can we show what similar players do in the same situations, using anonymized aggregate data?
+ * Can the same system be extended to other sports, like Tennis or Pickleball? 
+

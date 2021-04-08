@@ -153,3 +153,31 @@ a.nav {
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
+.rounded {
+    border-radius: 10px;
+}
+
+.macstyle {
+    border-radius: 10px;
+    border: 1px solid #eee;
+    border-top: 30px solid #eee;
+}
+
+.macstyle-small {
+    border-radius: 10px;
+    border: 1px solid #eee;
+    border-top: 20px solid #eee;
+}
+
+.macstyle-dark {
+    border-radius: 10px;
+    border: 1px solid #121D2B;
+    border-top: 30px solid #121D2B;
+}
+
+.macstyle-small-dark {
+    border-radius: 10px;
+    border: 1px solid #121D2B;
+    border-top: 20px solid #121D2B;
+}

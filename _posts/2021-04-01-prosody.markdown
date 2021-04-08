@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "Prosody: AI Speech Coach"
+date:   2021-04-01
+category: projects
+feature_image: /img/prosody-demo-playback-02.gif
+feature_image_class: rounded macstyle-small
+detail: true 
+priority: -40
+excerpt: Prosody is an AI-powered speech coach that helps you practice and deliver awesome speeches, presentations, pitches, and demos. 
+---
+
+Prosody is an AI-powered speech coach that helps you practice and deliver awesome speeches, presentations, pitches, and demos. Just hit 'Record' and deliver your presentation, then Prosody will give you smart, helpful tips on how to take your delivery to the next level. 
+
+![](/img/prosody-demo-recording-01.gif){:class="img-responsive rounded macstyle"}
+
+![](/img/prosody-demo-pacing-02.gif){:class="img-responsive rounded macstyle"}
+
+Like a friend or a super-smart mirror, Prosody listens and watches as you practice. When you're done, you get feedback on things like:
+
+ * **Fillers**: Are you relying too much on filler words like 'um', 'uh', and 'like'?
+ * **Pacing**: Are you speaking too quickly or slowly in certain parts? Are you varying your pace enough?
+ * **Pausing**: Are you pausing the right amount, both for emphasis and to help with listener comprehension?
+ * **Repetition**: Are you overusing certain words? 
+ 
+Prosody will also keep track of how you're doing over time -- encouraging you to keep honing your skills as you practice.
+
+I expect Prosody to keep getting smarter over time, too, providing feedback on new things like body language and more nuanced advice depending on the type of presentation you're giving (e.g., a wedding toast versus a product pitch). Stay tuned :) 

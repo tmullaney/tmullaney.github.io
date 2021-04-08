@@ -11,7 +11,7 @@
         <div class="row">
           {% if post.feature_image %}
           <div class="col-md-12">
-            <img class="img-responsive feature-img" src="{{ post.feature_image }}"></img>
+            <img class="img-responsive feature-img  {% if post.feature_image_class %}{{ post.feature_image_class }}{% endif %}" src="{{ post.feature_image }}"></img>
           </div>
           {% endif %}
           <div class="col-md-12">
