@@ -7,10 +7,10 @@ feature_image: /img/prosody-demo-playback-02.gif
 feature_image_class: rounded macstyle-small
 detail: true 
 priority: -40
-excerpt: Prosody is an AI-powered speech coach that helps you practice and deliver awesome speeches, presentations, pitches, and demos. 
+excerpt: Prosody is an AI-powered speech coach that helps you practice and deliver standout speeches, presentations, pitches, and demos. 
 ---
 
-Prosody is an AI-powered speech coach that helps you practice and deliver awesome speeches, presentations, pitches, and demos. Just hit 'Record' and deliver your presentation, then Prosody will give you smart, helpful tips on how to take your delivery to the next level. 
+Prosody is an AI-powered speech coach that helps you practice and deliver standout speeches, presentations, pitches, and demos. Just hit 'Record' and deliver your presentation, then Prosody will give you smart, helpful tips on how to take your delivery to the next level. 
 
 ![](/img/prosody-demo-recording-01.gif){:class="img-responsive rounded macstyle"}
 
